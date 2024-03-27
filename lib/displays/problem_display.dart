@@ -1,7 +1,7 @@
 import 'package:fhir_r4/fhir_r4.dart';
 import 'package:collection/collection.dart';
 
-class ConditionDisplay {
+class ProblemDisplay {
   String? conditionName;
   String? clinicalStatus;
   String? verificationStatus;
@@ -9,7 +9,7 @@ class ConditionDisplay {
   String? onsetDateTime;
   String? notes;
 
-  ConditionDisplay({
+  ProblemDisplay({
     this.conditionName,
     this.clinicalStatus,
     this.verificationStatus,
@@ -18,8 +18,8 @@ class ConditionDisplay {
     this.notes,
   });
 
-  factory ConditionDisplay.fromCondition(Condition condition) {
-    return ConditionDisplay()
+  factory ProblemDisplay.fromCondition(Condition condition) {
+    return ProblemDisplay()
       ..conditionName =
           condition.code?.text ?? condition.code?.coding?.firstOrNull?.display
       ..clinicalStatus = condition.clinicalStatus?.coding?.firstOrNull?.display
