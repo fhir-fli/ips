@@ -1,30 +1,17 @@
-import 'package:fhir_r4/fhir_r4.dart';
-
-class ProceduresDisplay {
+class ProcedureDisplay {
   String? procedureName;
   String? status;
   DateTime? performedDateTime;
   String? performer;
   String? location;
 
-  ProceduresDisplay({
+  ProcedureDisplay({
     this.procedureName,
     this.status,
     this.performedDateTime,
     this.performer,
     this.location,
   });
-
-  factory ProceduresDisplay.fromProcedure(Procedure procedure) {
-    return ProceduresDisplay(
-      procedureName:
-          procedure.code?.text ?? procedure.code?.coding?.firstOrNull?.display,
-      status: procedure.status?.value,
-      performedDateTime: procedure.performedDateTime?.value,
-      performer: procedure.performer?.firstOrNull?.actor.display,
-      location: procedure.location?.display,
-    );
-  }
 
   @override
   String toString() {

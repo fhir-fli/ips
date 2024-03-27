@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:fhir_r4/fhir_r4.dart';
-import 'package:ips/ips.dart';
+import 'package:ips/data/ips_data.dart';
 
 void main() {
   final Directory directory = Directory('validated_samples');
@@ -10,11 +10,7 @@ void main() {
     final String content = file.readAsStringSync();
     final resource = Resource.fromJsonString(content);
     if (resource is Bundle) {
-      final Ips parser = Ips(resource);
-      parser.printPatient();
-      parser.printAllergies();
-      parser.printMedications();
-      parser.printProblems();
+      final IpsData parser = IpsData(resource);
     }
   }
 }

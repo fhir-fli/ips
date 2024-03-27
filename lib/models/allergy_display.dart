@@ -1,5 +1,3 @@
-import 'package:fhir_r4/fhir_r4.dart';
-
 class AllergyDisplay {
   String? allergen;
   String? clinicalStatus;
@@ -14,22 +12,6 @@ class AllergyDisplay {
     this.reaction,
     this.criticality,
   });
-
-  factory AllergyDisplay.fromAllergyIntolerance(AllergyIntolerance allergy) {
-    return AllergyDisplay(
-      allergen:
-          allergy.code?.text ?? allergy.code?.coding?.firstOrNull?.display,
-      clinicalStatus: allergy.clinicalStatus?.coding?.firstOrNull?.display,
-      verificationStatus:
-          allergy.verificationStatus?.coding?.firstOrNull?.display,
-      reaction: allergy.reaction
-          ?.map((r) => r.manifestation
-              .map((m) => m.coding?.firstOrNull?.display ?? m.text)
-              .join(', '))
-          .join('; '),
-      criticality: allergy.criticality?.value,
-    );
-  }
 
   @override
   String toString() {
