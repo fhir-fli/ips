@@ -10,7 +10,7 @@ void main() {
     final String content = file.readAsStringSync();
     final resource = Resource.fromJsonString(content);
     if (resource is Bundle) {
-      final IpsData parser = IpsData(resource);
+      final IpsData data = IpsData(resource);
     }
   }
 }
