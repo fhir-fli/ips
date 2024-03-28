@@ -1,9 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:fhir_primitives/fhir_primitives.dart';
-import 'package:fhir_r4/fhir_r4.dart';
-import 'package:ips/ips.dart';
+import 'package:fhir_r5/fhir_r5.dart';
 
-class IpsData {
+import '../ips.dart';
+
+class IpsDataR5 {
   final Bundle bundle;
   Composition? composition;
   Patient? patient;
@@ -25,7 +26,7 @@ class IpsData {
     '42348-3': IpsSections.advanceDirectives,
   };
 
-  IpsData(this.bundle) {
+  IpsDataR5(this.bundle) {
     _parseComposition();
     _parseSectionReferences();
     _parsePatient();
@@ -63,6 +64,7 @@ class IpsData {
 
   void _parsePatient() {
     patient =
-        bundle.resourceFromBundle(composition?.subject?.reference) as Patient?;
+        bundle.resourceFromBundle(composition?.subject?.firstOrNull?.reference)
+            as Patient?;
   }
 }
