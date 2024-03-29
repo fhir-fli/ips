@@ -55,53 +55,54 @@ class IpsDataR5 {
       section?.entry?.map((e) => e.reference).whereType<String>().toList() ??
       <String>[];
 
-  List<Resource> sectionResources(IpsSection section) {
+  List<T> sectionResources<T>(IpsSection section) {
     final compositionSection = getSection(section);
     final references = sectionEntries(compositionSection);
     return references
         .map((ref) => bundle.resourceFromBundleByReference(ref))
-        .whereType<Resource>()
+        .whereType<T>()
         .toList();
   }
 
-  List<Resource> get medications => sectionResources(IpsSection.medications);
+  List<Resource> get medications =>
+      sectionResources<Resource>(IpsSection.medications);
 
   List<AllergyIntolerance> get allergies =>
-      sectionResources(IpsSection.allergies) as List<AllergyIntolerance>;
+      sectionResources<AllergyIntolerance>(IpsSection.allergies);
 
   List<Condition> get problems =>
-      sectionResources(IpsSection.problems) as List<Condition>;
+      sectionResources<Condition>(IpsSection.problems);
 
   List<Procedure> get procedures =>
-      sectionResources(IpsSection.procedures) as List<Procedure>;
+      sectionResources<Procedure>(IpsSection.procedures);
 
   List<Immunization> get immunizations =>
-      sectionResources(IpsSection.immunizations) as List<Immunization>;
+      sectionResources<Immunization>(IpsSection.immunizations);
 
   List<DeviceUsage> get medicationDevices =>
-      sectionResources(IpsSection.medicationDevices) as List<DeviceUsage>;
+      sectionResources<DeviceUsage>(IpsSection.medicationDevices);
 
   List<Observation> get results =>
-      sectionResources(IpsSection.results) as List<Observation>;
+      sectionResources<Observation>(IpsSection.results);
 
   List<Observation> get vitalSigns =>
-      sectionResources(IpsSection.vitalSigns) as List<Observation>;
+      sectionResources<Observation>(IpsSection.vitalSigns);
 
   List<Condition> get pastIllnessHx =>
-      sectionResources(IpsSection.pastIllnessHx) as List<Condition>;
+      sectionResources<Condition>(IpsSection.pastIllnessHx);
 
   List<Resource> get functionalStatus =>
-      sectionResources(IpsSection.functionalStatus);
+      sectionResources<Resource>(IpsSection.functionalStatus);
 
   List<CarePlan> get planOfCare =>
-      sectionResources(IpsSection.planOfCare) as List<CarePlan>;
+      sectionResources<CarePlan>(IpsSection.planOfCare);
 
   List<Observation> get socialHistory =>
-      sectionResources(IpsSection.socialHistory) as List<Observation>;
+      sectionResources<Observation>(IpsSection.socialHistory);
 
   List<Observation> get pregnancyHx =>
-      sectionResources(IpsSection.pregnancyHx) as List<Observation>;
+      sectionResources<Observation>(IpsSection.pregnancyHx);
 
   List<Consent> get advanceDirectives =>
-      sectionResources(IpsSection.advanceDirectives) as List<Consent>;
+      sectionResources<Consent>(IpsSection.advanceDirectives);
 }

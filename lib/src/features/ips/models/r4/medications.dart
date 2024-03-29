@@ -2,10 +2,16 @@ import 'package:fhir_r4/fhir_r4.dart';
 import 'package:ips/src/features/ips/models/r4/bundle.dart';
 
 extension MedicationRequestR4 on MedicationRequest {
-  String getMedicationName() =>
-      medicationCodeableConcept?.text ??
-      medicationCodeableConcept?.coding?.first.display ??
-      '--';
+  String getMedicationName(Bundle bundle) {
+    final Medication? medicationResource =
+        bundle.resourceFromBundleByReference(medicationReference?.reference)
+            as Medication?;
+
+    return medicationResource?.code?.coding?.firstOrNull?.display ??
+        medicationCodeableConcept?.text ??
+        medicationCodeableConcept?.coding?.first.display ??
+        '--';
+  }
 
   String getMedicationForm(Bundle bundle) {
     final Medication? medicationResource =
@@ -41,10 +47,16 @@ extension MedicationRequestR4 on MedicationRequest {
 }
 
 extension MedicationStatementR4 on MedicationStatement {
-  String getMedicationName() =>
-      medicationCodeableConcept?.text ??
-      medicationCodeableConcept?.coding?.first.display ??
-      '--';
+  String getMedicationName(Bundle bundle) {
+    final Medication? medicationResource =
+        bundle.resourceFromBundleByReference(medicationReference?.reference)
+            as Medication?;
+
+    return medicationResource?.code?.coding?.firstOrNull?.display ??
+        medicationCodeableConcept?.text ??
+        medicationCodeableConcept?.coding?.first.display ??
+        '--';
+  }
 
   String getMedicationForm(Bundle bundle) {
     // Assuming MedicationStatement might have a reference to Medication similarly
