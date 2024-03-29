@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ips/src/features/ips/presentation/ips_screen_controller.dart';
+import 'package:ips/src/src.dart';
 
 class IpsScreen extends ConsumerStatefulWidget {
   const IpsScreen({super.key});
@@ -10,22 +12,38 @@ class IpsScreen extends ConsumerStatefulWidget {
 
 class _IpsScreenState extends ConsumerState<IpsScreen> {
   @override
+  void initState() {
+    super.initState();
+
+    /// Attempt to login as soon as the widget is built
+    /// This is only called once, so it's safe to call it here
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(ipsPeopleListControllerProvider.notifier).loadPeople();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final drawer = Drawer(
-      child: ListView.builder(
-        itemBuilder: (context, index) => ListTile(
-          title: Text('Item $index'),
-          onTap: () {
-            // Update the state of the app
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-        padding: EdgeInsets.zero,
-      ),
-    );
+    final peopleList = ref.watch(ipsPeopleListControllerProvider).when(
+        data: (data) => data,
+        error: (e, s) => <IpsDataR4>[],
+        loading: () => <IpsDataR4>[]);
     return Scaffold(
-      drawer: drawer,
+      drawer: Drawer(
+        child: ListView.builder(
+          itemCount: peopleList.length,
+          itemBuilder: (context, index) => ListTile(
+            title: Text(
+                peopleList[index].patient?.name?.firstOrNull?.family ?? ''),
+            onTap: () {
+              // Update the state of the app
+              // Then close the drawer
+              Navigator.pop(context);
+            },
+          ),
+          padding: EdgeInsets.zero,
+        ),
+      ),
       appBar: AppBar(
         title: const Text('IPS'),
       ),

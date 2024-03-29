@@ -1,0 +1,16 @@
+enum IpsSection {
+  medications,
+  allergies,
+  problems,
+  procedures,
+  immunizations,
+  medicationDevices,
+  results,
+  vitalSigns,
+  pastIllnessHx,
+  functionalStatus,
+  planOfCare,
+  socialHistory,
+  pregnancyHx,
+  advanceDirectives,
+}

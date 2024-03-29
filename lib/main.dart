@@ -25,13 +25,16 @@ void main() async {
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers(errorLogger);
   // * Entry point of the app
+  final _goRouter = container.read(goRouterProvider);
   runApp(UncontrolledProviderScope(
       container: container,
-      child: MaterialApp(
+      child: MaterialApp.router(
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: LoginScreen(),
+        routeInformationProvider: _goRouter.routeInformationProvider,
+        routeInformationParser: _goRouter.routeInformationParser,
+        routerDelegate: _goRouter.routerDelegate,
       )));
 }
 
