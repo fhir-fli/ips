@@ -1,1 +1,1 @@
-export 'ips_view.dart';
+export 'ips_screen.dart';

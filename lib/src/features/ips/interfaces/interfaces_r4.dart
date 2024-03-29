@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
-import 'package:fhir_r5/fhir_r5.dart';
+import 'package:fhir_r4/fhir_r4.dart';
 
-import '../../../../src.dart';
+import '../../../src.dart';
 
-AllergyDisplay allergyDisplayFromAllergyIntoleranceR5(
+AllergyDisplay allergyDisplayFromAllergyIntoleranceR4(
     AllergyIntolerance allergy) {
   return AllergyDisplay(
     allergen: allergy.code?.text ?? allergy.code?.coding?.firstOrNull?.display,
@@ -12,18 +12,17 @@ AllergyDisplay allergyDisplayFromAllergyIntoleranceR5(
         allergy.verificationStatus?.coding?.firstOrNull?.display,
     reaction: allergy.reaction
         ?.map((r) => r.manifestation
-            .map((m) =>
-                m.concept?.coding?.firstOrNull?.display ?? m.concept?.text)
+            .map((m) => m.coding?.firstOrNull?.display ?? m.text)
             .join(', '))
         .join('; '),
     criticality: allergy.criticality?.value,
   );
 }
 
-FunctionalStatusDisplay functionalStatusDisplayFromConditionR5(
+FunctionalStatusDisplay functionalStatusDisplayFromConditionR4(
     Condition condition) {
   return FunctionalStatusDisplay(
-    status: condition.clinicalStatus.coding?.firstOrNull?.display,
+    status: condition.clinicalStatus?.coding?.firstOrNull?.display,
     severity: condition.severity?.coding?.firstOrNull?.display,
     codeDisplay:
         condition.code?.text ?? condition.code?.coding?.firstOrNull?.display,
@@ -34,15 +33,15 @@ FunctionalStatusDisplay functionalStatusDisplayFromConditionR5(
   );
 }
 
-FunctionalStatusDisplay functionalStatusDisplayFromClinicalImpressionR5(
+FunctionalStatusDisplay functionalStatusDisplayFromClinicalImpressionR4(
     ClinicalImpression clinicalImpression, Bundle bundle) {
   String? findings;
   // Potentially, clinicalImpression.finding could contain relevant information
   if (clinicalImpression.finding?.isNotEmpty ?? false) {
     findings = clinicalImpression.finding!
         .map((f) =>
-            f.item?.concept?.text ??
-            f.item?.concept?.coding?.firstOrNull?.display)
+            f.itemCodeableConcept?.text ??
+            f.itemCodeableConcept?.coding?.firstOrNull?.display)
         .join(', ');
   }
 
@@ -55,7 +54,7 @@ FunctionalStatusDisplay functionalStatusDisplayFromClinicalImpressionR5(
   );
 }
 
-ImmunizationDisplay immunizationDisplayFromImmunizationR5(
+ImmunizationDisplay immunizationDisplayFromImmunizationR4(
     Immunization immunization) {
   return ImmunizationDisplay(
     vaccineName: immunization.vaccineCode.text ??
@@ -65,20 +64,20 @@ ImmunizationDisplay immunizationDisplayFromImmunizationR5(
   );
 }
 
-MedicationDeviceDisplay medicationDeviceDisplayFromDeviceUseStatementR5(
-    DeviceUsage deviceUseStatement, Bundle bundle) {
+MedicationDeviceDisplay medicationDeviceDisplayFromDeviceUseStatementR4(
+    DeviceUseStatement deviceUseStatement, Bundle bundle) {
   // Assuming the device reference is correctly formatted and exists within the same bundle
-  String deviceReference = deviceUseStatement.device.reference?.reference ?? '';
+  String deviceReference = deviceUseStatement.device.reference ?? '';
   Device? device = bundle.resourceFromBundle(deviceReference) as Device?;
 
   // Constructing the reason from the reasonCode field
-  String? reasons = deviceUseStatement.reason?.firstOrNull?.concept?.coding
-      ?.map((coding) => coding.code?.value ?? coding.display)
+  String? reasons = deviceUseStatement.reasonCode
+      ?.map((code) => code.text ?? code.coding?.firstOrNull?.display)
       .join(", ");
 
   return MedicationDeviceDisplay(
-    deviceName: device?.type?.firstOrNull?.text ??
-        device?.type?.firstOrNull?.coding?.firstOrNull?.display,
+    deviceName:
+        device?.type?.text ?? device?.type?.coding?.firstOrNull?.display,
     status: deviceUseStatement.status?.value,
     timing: deviceUseStatement.timingDateTime?.value ??
         deviceUseStatement.timingPeriod?.start?.value,
@@ -86,27 +85,27 @@ MedicationDeviceDisplay medicationDeviceDisplayFromDeviceUseStatementR5(
   );
 }
 
-MedicationDisplay medicationDisplayFromMedicationStatementR5(
+MedicationDisplay medicationDisplayFromMedicationStatementR4(
     MedicationStatement medicationStatement, Bundle bundle) {
-  return populateMedicationDisplayR5(
-    medicationReference: medicationStatement.medication.reference,
-    medicationCodeableConcept: medicationStatement.medication.concept,
+  return populateMedicationDisplayR4(
+    medicationReference: medicationStatement.medicationReference,
+    medicationCodeableConcept: medicationStatement.medicationCodeableConcept,
     dosages: medicationStatement.dosage,
     bundle: bundle,
   );
 }
 
-MedicationDisplay medicationDisplayFromMedicationRequestR5(
+MedicationDisplay medicationDisplayFromMedicationRequestR4(
     MedicationRequest medicationRequest, Bundle bundle) {
-  return populateMedicationDisplayR5(
-    medicationReference: medicationRequest.medication.reference,
-    medicationCodeableConcept: medicationRequest.medication.concept,
+  return populateMedicationDisplayR4(
+    medicationReference: medicationRequest.medicationReference,
+    medicationCodeableConcept: medicationRequest.medicationCodeableConcept,
     dosages: medicationRequest.dosageInstruction,
     bundle: bundle,
   );
 }
 
-MedicationDisplay populateMedicationDisplayR5({
+MedicationDisplay populateMedicationDisplayR4({
   Reference? medicationReference,
   CodeableConcept? medicationCodeableConcept,
   List<Dosage>? dosages,
@@ -124,8 +123,8 @@ MedicationDisplay populateMedicationDisplayR5({
   if (medicationResource is Medication) {
     display.medicationName = medicationResource.code?.text ??
         medicationResource.code?.coding?.firstOrNull?.display;
-    display.medicationForm = medicationResource.doseForm?.text ??
-        medicationResource.doseForm?.coding?.firstOrNull?.display;
+    display.medicationForm = medicationResource.form?.text ??
+        medicationResource.form?.coding?.firstOrNull?.display;
   } else if (medicationCodeableConcept != null) {
     display.medicationName = medicationCodeableConcept.text ??
         medicationCodeableConcept.coding?.firstOrNull?.display;
@@ -146,12 +145,12 @@ MedicationDisplay populateMedicationDisplayR5({
   return display;
 }
 
-PastIllnessHistoryDisplay pastIllnessHistoryDisplayFromConditionR5(
+PastIllnessHistoryDisplay pastIllnessHistoryDisplayFromConditionR4(
     Condition condition) {
   return PastIllnessHistoryDisplay(
     conditionName:
         condition.code?.text ?? condition.code?.coding?.firstOrNull?.display,
-    clinicalStatus: condition.clinicalStatus.coding?.firstOrNull?.display,
+    clinicalStatus: condition.clinicalStatus?.coding?.firstOrNull?.display,
     verificationStatus:
         condition.verificationStatus?.coding?.firstOrNull?.display,
     severity: condition.severity?.coding?.firstOrNull?.display,
@@ -161,7 +160,7 @@ PastIllnessHistoryDisplay pastIllnessHistoryDisplayFromConditionR5(
   );
 }
 
-PlanOfCareDisplay planOfCareDisplayFromCarePlanR5(CarePlan carePlan) {
+PlanOfCareDisplay planOfCareDisplayFromCarePlanR4(CarePlan carePlan) {
   final category = carePlan.category?.firstOrNull?.text ??
       carePlan.category?.firstOrNull?.coding?.firstOrNull?.display;
   final summary = carePlan.description;
@@ -180,11 +179,11 @@ PlanOfCareDisplay planOfCareDisplayFromCarePlanR5(CarePlan carePlan) {
   );
 }
 
-ProblemDisplay problemDisplayFromConditionR5(Condition condition) {
+ProblemDisplay problemDisplayFromConditionR4(Condition condition) {
   return ProblemDisplay()
     ..conditionName =
         condition.code?.text ?? condition.code?.coding?.firstOrNull?.display
-    ..clinicalStatus = condition.clinicalStatus.coding?.firstOrNull?.display
+    ..clinicalStatus = condition.clinicalStatus?.coding?.firstOrNull?.display
     ..verificationStatus =
         condition.verificationStatus?.coding?.firstOrNull?.display
     ..severity = condition.severity?.coding?.firstOrNull?.display
@@ -207,18 +206,18 @@ String? _parseOnset(Condition condition) {
   return null;
 }
 
-ProcedureDisplay procedureDisplayFromProcedure(Procedure procedure) {
+ProcedureDisplay procedureDisplayFromProcedureR4(Procedure procedure) {
   return ProcedureDisplay(
     procedureName:
         procedure.code?.text ?? procedure.code?.coding?.firstOrNull?.display,
     status: procedure.status?.value,
-    performedDateTime: procedure.occurrenceDateTime?.value,
+    performedDateTime: procedure.performedDateTime?.value,
     performer: procedure.performer?.firstOrNull?.actor.display,
     location: procedure.location?.display,
   );
 }
 
-ResultDisplay resultsDisplayFromObservationR5(Observation observation) {
+ResultDisplay resultsDisplayFromObservationR4(Observation observation) {
   return ResultDisplay(
     resultType:
         observation.code.text ?? observation.code.coding?.firstOrNull?.display,
@@ -233,7 +232,7 @@ ResultDisplay resultsDisplayFromObservationR5(Observation observation) {
   );
 }
 
-ResultDisplay resultsDisplayFromDiagnosticReportR5(
+ResultDisplay resultsDisplayFromDiagnosticReportR4(
     DiagnosticReport diagnosticReport, Bundle bundle) {
   // Initialize default values
   String? primaryResultValue;
@@ -264,7 +263,7 @@ ResultDisplay resultsDisplayFromDiagnosticReportR5(
   );
 }
 
-SocialHistoryDisplay socialHistoryDisplayFromObservationR5(
+SocialHistoryDisplay socialHistoryDisplayFromObservationR4(
     Observation observation) {
   final socialFactor =
       observation.code.text ?? observation.code.coding?.firstOrNull?.display;
@@ -287,7 +286,7 @@ SocialHistoryDisplay socialHistoryDisplayFromObservationR5(
   );
 }
 
-VitalSignDisplay vitalSignDisplayFromObservationR5(Observation observation) {
+VitalSignDisplay vitalSignDisplayFromObservationR4(Observation observation) {
   String? observationValue;
   if (observation.valueQuantity != null) {
     observationValue =

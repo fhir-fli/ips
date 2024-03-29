@@ -6,6 +6,7 @@ export 'medication_device_display.dart';
 export 'medication_display.dart';
 export 'past_illness_history_display.dart';
 export 'plan_of_care_display.dart';
+export 'pregnancy_display.dart';
 export 'problem_display.dart';
 export 'procedure_display.dart';
 export 'result_display.dart';

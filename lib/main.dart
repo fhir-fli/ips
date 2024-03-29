@@ -18,7 +18,6 @@ void main() async {
   // * https://docs.flutter.dev/testing/errors
   // * Create ProviderContainer with any required overrides
   final container = ProviderContainer(
-    overrides: [],
     observers: [AsyncErrorLogger()],
   );
   final errorLogger = container.read(errorLoggerProvider);
@@ -27,9 +26,13 @@ void main() async {
   registerErrorHandlers(errorLogger);
   // * Entry point of the app
   runApp(UncontrolledProviderScope(
-    container: container,
-    child: const MyApp(),
-  ));
+      container: container,
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: LoginScreen(),
+      )));
 }
 
 void registerErrorHandlers(ErrorLogger errorLogger) {

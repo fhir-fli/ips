@@ -1,0 +1,367 @@
+{
+    "@@locale": "en",
+    "a1languageTitle": "English",
+    "@a1languageTitle": {
+        "description": "A message without extra parameters"
+    },
+    "add": "Add",
+    "@add": {
+        "description": "Add"
+    },
+    "addPlanDefinition": "Add a Plan Definition",
+    "@addPlanDefinition": {
+        "description": "Add Plan Definition"
+    },
+    "addQuestionnaire": "Add Questionnaire",
+    "@addQuestionnaire": {
+        "description": "Add Questionnaire"
+    },
+    "admin": "Admin",
+    "@admin": {
+        "description": "Admin"
+    },
+    "age": "Age",
+    "@age": {
+        "description": "age"
+    },
+    "capitalAge": "Age",
+    "@capitalAge": {
+        "description": "Age"
+    },
+    "answerReset": "Reset",
+    "@answerReset": {
+        "description": "Message label to reset an answer"
+    },
+    "birthDate": "BirthDate",
+    "@birthDate": {
+        "description": "Birth Date"
+    },
+    "birthDateAbbreviation": "DOB",
+    "@birthDateAbbreviation": {
+        "description": "Abbreviation of Birth Date"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Cancel"
+    },
+    "capitalMRN": "MRN",
+    "@capitalMRN": {
+        "description": "3 letters indicating medical record number"
+    },
+    "communication": "Communication",
+    "@communication": {
+        "description": "Communication"
+    },
+    "complete": "Complete",
+    "@complete": {
+        "description": "Complete"
+    },
+    "contactName": "Contact Name",
+    "@contactName": {
+        "description": "Contact Name"
+    },
+    "dataReview": "Data Review",
+    "@dataReview": {
+        "description": "Data Review"
+    },
+    "dateCompleted": "Date Completed:",
+    "@dateCompleted": {
+        "description": "Date Completed"
+    },
+    "dateSent": "Date Sent:",
+    "@dateSent": {
+        "description": "Date Sent"
+    },
+    "day": "Day",
+    "@day": {
+        "description": "Day"
+    },
+    "days": "Days",
+    "@days": {
+        "description": "Days"
+    },
+    "daysAgo": "days ago",
+    "@daysAgo": {
+        "description": "Days ago"
+    },
+    "dob": "DOB",
+    "@dob": {
+        "description": "Initials indicated date of birth"
+    },
+    "dontHaveAccount": "Don't Have an Account?",
+    "@dontHaveAccount": {
+        "description": "Don't Have an Account?"
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Email"
+    },
+    "enterYourEmail": "Enter your Email",
+    "@enterYourEmail": {
+        "description": "Enter your Email"
+    },
+    "enterYourPassword": "Enter your Password",
+    "@enterYourPassword": {
+        "description": "Enter your Password"
+    },
+    "errorLogginIn": "Error logging in",
+    "@errorLogginIn": {
+        "description": "There was an error while loggin in"
+    },
+    "errorRetrievingPatient": "Error retrieving patient:",
+    "@errorRetrievingPatient": {
+        "description": "There was an error retrieving the patient's information"
+    },
+    "errorRetrivingResponses": "Error retrieving responses to task:",
+    "@errorRetrivingResponses": {
+        "description": "Alert when the responses to the Task were unabled to be got"
+    },
+    "familyName": "Family Name",
+    "@familyName": {
+        "description": "Family Name"
+    },
+    "forgotPassword": "Forgot Password?",
+    "@forgotPassword": {
+        "description": "Forgot Password?"
+    },
+    "genderIdentity": "Gender Identity",
+    "@genderIdentity": {
+        "description": "Gender Identity"
+    },
+    "growth": "Growth",
+    "@growth": {
+        "description": "Growth"
+    },
+    "homePage": "Home Page",
+    "@homePage": {
+        "description": "Home Page"
+    },
+    "loadingPlanDefinitions": "Loading PlanDefinitions",
+    "@loadingPlanDefinitions": {
+        "description": "Alert when loading Plan Definitions"
+    },
+    "loadingQuestionnaires": "Loading Questionnaires",
+    "@loadingQuestionnaires": {
+        "description": "Alert when loading Questionnaires"
+    },
+    "loggingIn": "Logging in...",
+    "@loggingIn": {
+        "description": "Display message while trying to login"
+    },
+    "loginCapital": "LOGIN",
+    "@loginCapital": {
+        "description": "LOGIN"
+    },
+    "loginLowercase": "login",
+    "@loginLowercase": {
+        "description": "login"
+    },
+    "logout": "Logout",
+    "@logout": {
+        "description": "Logout"
+    },
+    "month": "Month",
+    "@month": {
+        "description": "Month"
+    },
+    "months": "Months",
+    "@months": {
+        "description": "Months"
+    },
+    "monthsAgo": "months ago",
+    "@monthsAgo": {
+        "description": "Months ago"
+    },
+    "name": "Name",
+    "@name": {
+        "description": "name"
+    },
+    "names": "Names",
+    "@names": {
+        "description": "Names"
+    },
+    "navigator": "Navigator",
+    "@navigator": {
+        "description": "Navigator"
+    },
+    "newPatient": "New Patient",
+    "@newPatient": {
+        "description": "New Patient"
+    },
+    "newTask": "New Task",
+    "@newTask": {
+        "description": "Header while creating a new task"
+    },
+    "noBirthdateAvailable": "No Birthdate Available",
+    "@noBirthdateAvailable": {
+        "description": "No Birthdate Available"
+    },
+    "noRecordOfSent": "No record of being sent",
+    "@noRecordOfSent": {
+        "description": "Alert if there's no record of a communication being sent"
+    },
+    "noTaskSelected": "No Task Selected",
+    "@noTaskSelected": {
+        "description": "No Task Selected"
+    },
+    "notAvailable": "not available",
+    "@notAvailable": {
+        "description": "Something is not available"
+    },
+    "notes": "Notes",
+    "@notes": {
+        "description": "Notes"
+    },
+    "orForLogin": "- OR -",
+    "@orForLogin": {
+        "description": "- OR -"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Password"
+    },
+    "patient": "Patient",
+    "@patient": {
+        "description": "Patient"
+    },
+    "patientIndex": "Patient Index",
+    "@patientIndex": {
+        "description": "Patient Index"
+    },
+    "patientInfo": "Patient Info",
+    "@patientInfo": {
+        "description": "Patient Info"
+    },
+    "percentComplete": "% Complete",
+    "@percentComplete": {
+        "description": "Percent Complete"
+    },
+    "planDefinition": "Plan Definition",
+    "@planDefinition": {
+        "description": "Plan Definition"
+    },
+    "plusNewTask": "+ New Task",
+    "@plusNewTask": {
+        "description": "New Task button text"
+    },
+    "population": "Population",
+    "@population": {
+        "description": "Population"
+    },
+    "preferredName": "Preferred Name",
+    "@preferredName": {
+        "description": "Preferred Name"
+    },
+    "pronouns": "Pronouns",
+    "@pronouns": {
+        "description": "Pronouns"
+    },
+    "questionnaire": "Questionnaire",
+    "@questionnaire": {
+        "description": "Questionnaire"
+    },
+    "rememberMe": "Remember Me",
+    "@rememberMe": {
+        "description": "Remember Me"
+    },
+    "responses": "Responses",
+    "@responses": {
+        "description": "Responses"
+    },
+    "retrievingPatient": "Retrieving patient...",
+    "@retrievingPatient": {
+        "description": "Display message while downloading patient information"
+    },
+    "retrievingResponses": "Retrieving responses to task...",
+    "@retrievingResponses": {
+        "description": "Display message while retrieving task responses"
+    },
+    "schedule": "Schedule",
+    "@schedule": {
+        "description": "Schedule"
+    },
+    "searchPatient": "Search Patient",
+    "@searchPatient": {
+        "description": "Search Patient"
+    },
+    "searchTasks": "Search Tasks",
+    "@searchTasks": {
+        "description": "Search Tasks"
+    },
+    "selectPlanDefinition": "Select a Plan Definition",
+    "@selectPlanDefinition": {
+        "description": "Select Plan Definition"
+    },
+    "selectQuestionnaire": "Select a Questionnaire",
+    "@selectQuestionnaire": {
+        "description": "Select a Questionnaire"
+    },
+    "sendToPatient": "Sent to Patient",
+    "@sendToPatient": {
+        "description": "Button text when ready to send to patient"
+    },
+    "sent": "Sent:",
+    "@sent": {
+        "description": "sent"
+    },
+    "sent24Hours": "Sent: within the last 24 hours",
+    "@sent24Hours": {
+        "description": "Alerts the last time a communication was sent, less than 24 hours"
+    },
+    "sentOverAYear": "Sent: over a year ago",
+    "@sentOverAYear": {
+        "description": "Alerts the last time a communication was sent, more than a year"
+    },
+    "sexAtBirth": "Sex at Birth",
+    "@sexAtBirth": {
+        "description": "Sex at Birth"
+    },
+    "shouldNotBeHere": "You shouldn't be here",
+    "@shouldNotBeHere": {
+        "description": "A message displayed when a screen is tried to accessed without proper credentials"
+    },
+    "signIn": "Sign In",
+    "@signIn": {
+        "description": "Sign In"
+    },
+    "signInWith": "Sign In With",
+    "@signInWith": {
+        "description": "Sign In With"
+    },
+    "signUp": "Sign Up",
+    "@signUp": {
+        "description": "Sign Up"
+    },
+    "task": "Task",
+    "@task": {
+        "description": "Task"
+    },
+    "tasks": "Tasks",
+    "@tasks": {
+        "description": "Tasks"
+    },
+    "title": "Cuestionario Recetario",
+    "@title": {
+        "description": "Title displayed on this application"
+    },
+    "unavailable": "Unavailable",
+    "@unavailable": {
+        "description": "Unavailable"
+    },
+    "unknown": "Unknown",
+    "@unknown": {
+        "description": "Unknown"
+    },
+    "weeksAgo": "weeks ago",
+    "@weeksAgo": {
+        "description": "Weeks ago"
+    },
+    "year": "Year",
+    "@year": {
+        "description": "Year"
+    },
+    "years": "Years",
+    "@years": {
+        "description": "Years"
+    }
+}
