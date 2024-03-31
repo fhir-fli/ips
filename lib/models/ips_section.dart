@@ -1,0 +1,33 @@
+enum IpsSection {
+  medications,
+  allergies,
+  problems,
+  procedures,
+  immunizations,
+  medicationDevices,
+  results,
+  vitalSigns,
+  pastIllnessHx,
+  functionalStatus,
+  planOfCare,
+  socialHistory,
+  pregnancyHx,
+  advanceDirectives,
+}
+
+final Map<IpsSection, String> sectionLoincCodes = {
+  IpsSection.medications: '10160-0',
+  IpsSection.allergies: '48765-2',
+  IpsSection.problems: '11450-4',
+  IpsSection.procedures: '47519-4',
+  IpsSection.immunizations: '11369-6',
+  IpsSection.medicationDevices: '46264-8',
+  IpsSection.results: '30954-2',
+  IpsSection.vitalSigns: '8716-3',
+  IpsSection.pastIllnessHx: '11348-0',
+  IpsSection.functionalStatus: '47420-5',
+  IpsSection.planOfCare: '18776-5',
+  IpsSection.socialHistory: '29762-2',
+  IpsSection.pregnancyHx: '10162-6',
+  IpsSection.advanceDirectives: '42348-3',
+};
