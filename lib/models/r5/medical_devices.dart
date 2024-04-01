@@ -1,5 +1,5 @@
 import 'package:fhir_r5/fhir_r5.dart';
-import 'package:ips/models/r5/r5.dart';
+import '../../ips.dart';
 
 extension DeviceUseStatementR5 on DeviceUsage {
   String getDeviceName(Bundle bundle) {
@@ -7,10 +7,10 @@ extension DeviceUseStatementR5 on DeviceUsage {
         .resourceFromBundleByReference(device.reference?.reference) as Device?;
     return actualDevice?.type?.firstOrNull?.text ??
         actualDevice?.type?.firstOrNull?.coding?.firstOrNull?.display ??
-        '--';
+        ''.hardcoded;
   }
 
-  String getStatus() => status?.value ?? '--';
+  String getStatus() => status?.value ?? ''.hardcoded;
 
   String getTiming() {
     if (timingDateTime != null) {
@@ -30,9 +30,19 @@ extension DeviceUseStatementR5 on DeviceUsage {
           .map((code) =>
               code.concept?.text ??
               code.concept?.coding?.firstOrNull?.display ??
-              '--')
+              ''.hardcoded)
           .join(", ");
     }
-    return '--';
+    return ''.hardcoded;
+  }
+
+  String display(Bundle bundle) {
+    List<String> parts = [
+      getDeviceName(bundle),
+      getStatus(),
+      getTiming(),
+      getReason(bundle),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
   }
 }

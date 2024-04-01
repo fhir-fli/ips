@@ -10,14 +10,11 @@ class IpsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String allergiesDisplay(AllergyIntolerance allergy) =>
-        '${allergy.getAllergen()} - ${allergy.getClinicalStatus()} - ${allergy.getVerificationStatus()} - ${allergy.getReaction()} - ${allergy.getCriticality()}';
-    String? medicationsDisplay(Resource resource) => resource
-            is MedicationRequest
-        ? '${resource.getMedicationName(person.bundle)} - ${resource.getMedicationForm(person.bundle)} - ${resource.getRouteOfAdministration()} - ${resource.getDosingTiming()} - ${resource.getDoseQuantity()} - ${resource.getInstructions()}'
-        : resource is MedicationStatement
-            ? '${resource.getMedicationName(person.bundle)} - ${resource.getMedicationForm(person.bundle)} - ${resource.getRouteOfAdministration()} - ${resource.getDosingTiming()} - ${resource.getDoseQuantity()} - ${resource.getInstructions()}'
-            : null;
+    TextStyle headerStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      decoration: TextDecoration.underline,
+      decorationThickness: 1,
+    );
 
     return Scaffold(
         appBar: AppBar(
@@ -26,60 +23,193 @@ class IpsScreen extends ConsumerWidget {
         body: ListView(
           children: [
             ListTile(
-              title: Text('Allergies'),
+              title: Text(
+                'Allergies',
+                style: headerStyle,
+              ),
             ),
             Column(
                 children: person.allergies
-                    .map((a) => allergiesDisplay(a))
+                    .map((a) => a.display(person.bundle))
                     .whereType<String>()
+                    .where((element) => element.isNotEmpty)
                     .map((e) => ListTile(title: Text(e)))
                     .toList()),
             ListTile(
-              title: Text('Medications'),
+              title: Text(
+                'Medications',
+                style: headerStyle,
+              ),
             ),
             Column(
               children: person.medications
-                  .map((e) => medicationsDisplay(e))
+                  .map((e) => e is MedicationStatement
+                      ? e.display(person.bundle)
+                      : (e as MedicationRequest).display(person.bundle))
                   .whereType<String>()
+                  .where((element) => element.isNotEmpty)
                   .map((e) => ListTile(title: Text(e)))
                   .toList(),
             ),
             ListTile(
-              title: Text('Problems'),
+              title: Text(
+                'Problems',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.problems
+                    .map((a) => ConditionProblemR4(a).display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Vital Signs',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.vitalSigns
+                    .map((a) => ObservationVitalSignR4(a).display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Past Illness History',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.pastIllnessHx
+                    .map((a) => ConditionPastIllnessR4(a).display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Pregnancy History',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.pregnancyHx
+                    .map((a) => ObservationPregnancyR4(a).display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Medication Devices',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.medicationDevices
+                    .map((a) => a.display(person.bundle))
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Procedures',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.procedures
+                    .map((a) => a.display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Social History',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.socialHistory
+                    .map((a) => ObservationSocialHistoryR4(a).display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Results',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.results
+                    .map((a) => ObservationResultsR4(a).display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Immunizations',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+                children: person.immunizations
+                    .map((a) => a.display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
+            ListTile(
+              title: Text(
+                'Functional Status',
+                style: headerStyle,
+              ),
+            ),
+            Column(
+              children: person.functionalStatus
+                  .map((e) => e is Condition
+                      ? ConditionFunctionalStatusR4(e).display()
+                      : (e as ClinicalImpression).display())
+                  .whereType<String>()
+                  .where((element) => element.isNotEmpty)
+                  .map((e) => ListTile(title: Text(e)))
+                  .toList(),
             ),
             ListTile(
-              title: Text('Vital Signs'),
+              title: Text(
+                'Plan of Care',
+                style: headerStyle,
+              ),
             ),
+            Column(
+                children: person.planOfCare
+                    .map((a) => a.display())
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
             ListTile(
-              title: Text('Past Illness History'),
+              title: Text(
+                'Advance Directives',
+                style: headerStyle,
+              ),
             ),
-            ListTile(
-              title: Text('Pregnancy History'),
-            ),
-            ListTile(
-              title: Text('Medication Devices'),
-            ),
-            ListTile(
-              title: Text('Procedures'),
-            ),
-            ListTile(
-              title: Text('Social History'),
-            ),
-            ListTile(
-              title: Text('Results'),
-            ),
-            ListTile(
-              title: Text('Immunizations'),
-            ),
-            ListTile(
-              title: Text('Functional Status'),
-            ),
-            ListTile(
-              title: Text('Plan of Care'),
-            ),
-            ListTile(
-              title: Text('Advance Directives'),
-            ),
+            Column(
+                children: person.advanceDirectives
+                    .map((a) => a.display(person.bundle))
+                    .whereType<String>()
+                    .where((element) => element.isNotEmpty)
+                    .map((e) => ListTile(title: Text(e)))
+                    .toList()),
           ],
         ));
   }

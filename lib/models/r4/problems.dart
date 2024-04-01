@@ -1,34 +1,59 @@
 import 'package:fhir_r4/fhir_r4.dart';
+import '../../ips.dart';
 
-extension ConditionR4 on Condition {
+extension ConditionProblemR4 on Condition {
   String getConditionName() =>
-      code?.text ?? code?.coding?.first.display ?? '--';
+      code?.text ?? code?.coding?.first.display ?? ''.hardcoded;
 
-  String getClinicalStatus() => clinicalStatus?.coding?.first.display ?? '--';
+  String getClinicalStatus() =>
+      clinicalStatus?.coding?.first.display ?? ''.hardcoded;
 
   String getVerificationStatus() =>
-      verificationStatus?.coding?.first.display ?? '--';
+      verificationStatus?.coding?.first.display ?? ''.hardcoded;
 
-  String getSeverity() => severity?.coding?.first.display ?? '--';
+  String getSeverity() => severity?.coding?.first.display ?? ''.hardcoded;
 
   String getOnsetDateTime() {
     if (onsetDateTime != null) {
       return onsetDateTime!.toIso8601String();
     } else if (onsetPeriod != null) {
-      final start = onsetPeriod!.start?.toIso8601String() ?? '--';
-      final end = onsetPeriod!.end?.toIso8601String() ?? '--';
+      final start = onsetPeriod!.start?.toIso8601String() ?? ''.hardcoded;
+      final end = onsetPeriod!.end?.toIso8601String() ?? ''.hardcoded;
       return '$start to $end';
     } else if (onsetAge != null) {
       return 'Age at onset: ${onsetAge!.value?.toString()} ${onsetAge!.unit}';
     } else if (onsetRange != null) {
-      final low = onsetRange!.low?.value?.toString() ?? '--';
-      final high = onsetRange!.high?.value?.toString() ?? '--';
+      final low = onsetRange!.low?.value?.toString() ?? ''.hardcoded;
+      final high = onsetRange!.high?.value?.toString() ?? ''.hardcoded;
       return 'Range: $low to $high';
     } else if (onsetString != null) {
       return onsetString!;
     }
-    return '--';
+    return ''.hardcoded;
   }
 
-  String getNotes() => note?.map((n) => n.text ?? '--').join('; ') ?? '--';
+  String getNotes() =>
+      note?.map((n) => n.text ?? ''.hardcoded).join('; ') ?? ''.hardcoded;
+
+  String getResolutionDateTime() {
+    if (abatementDateTime != null) {
+      return abatementDateTime!.toIso8601String();
+    } else if (abatementPeriod != null) {
+      return abatementPeriod!.start?.toIso8601String() ?? ''.hardcoded;
+    }
+    return ''.hardcoded;
+  }
+
+  String display() {
+    List<String> parts = [
+      getConditionName(),
+      getClinicalStatus(),
+      getVerificationStatus(),
+      getSeverity(),
+      getOnsetDateTime(),
+      getResolutionDateTime(),
+      getNotes(),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
+  }
 }

@@ -1,11 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:fhir_r6/fhir_r6.dart';
+import '../../ips.dart';
 
 extension ConsentAdvanceDirectiveR6 on Consent {
   String getStatus() => status?.value ?? "Unknown";
 
   String getCategory() =>
-      category?.firstOrNull?.coding?.firstOrNull?.display ?? '--';
+      category?.firstOrNull?.coding?.firstOrNull?.display ?? ''.hardcoded;
 
   String getDateTime() => date?.value.toIso8601String() ?? 'Date unknown';
 
@@ -16,7 +17,7 @@ extension ConsentAdvanceDirectiveR6 on Consent {
           ?.firstWhereOrNull((entry) => entry.fullUrl?.value == reference)
           ?.resource;
       if (referencedResource is Organization) {
-        return referencedResource.name ?? '--';
+        return referencedResource.name ?? ''.hardcoded;
       }
     }
     if (controller != null && controller!.isNotEmpty) {
@@ -25,16 +26,28 @@ extension ConsentAdvanceDirectiveR6 on Consent {
           ?.firstWhereOrNull((entry) => entry.fullUrl?.value == reference)
           ?.resource;
       if (referencedResource is Organization) {
-        return referencedResource.name ?? '--';
+        return referencedResource.name ?? ''.hardcoded;
       }
     }
-    return '--';
+    return ''.hardcoded;
   }
 
   String getSourceAttachment() =>
       sourceAttachment?.firstOrNull?.title ??
       sourceReference?.firstOrNull?.display ??
-      '--';
+      ''.hardcoded;
 
-  String getNotes() => text?.div.value ?? '--';
+  String getNotes() => text?.div.value ?? ''.hardcoded;
+
+  String display(Bundle bundle) {
+    List<String> parts = [
+      getStatus(),
+      getCategory(),
+      getDateTime(),
+      getOrganization(bundle),
+      getSourceAttachment(),
+      getNotes(),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
+  }
 }

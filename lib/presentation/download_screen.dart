@@ -13,11 +13,12 @@ class DownloadScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Center(
-            child: TextButton(
+            child: ElevatedButton(
               child: Text('Load Demo Data'),
               onPressed: () async {
                 final manifestJson =

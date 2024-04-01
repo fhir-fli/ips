@@ -1,16 +1,18 @@
 import 'package:fhir_r4/fhir_r4.dart';
+import '../../ips.dart';
 
 extension ConditionPastIllnessR4 on Condition {
   String getConditionName() =>
-      code?.text ?? code?.coding?.firstOrNull?.display ?? '--';
+      code?.text ?? code?.coding?.firstOrNull?.display ?? ''.hardcoded;
 
   String getClinicalStatus() =>
-      clinicalStatus?.coding?.firstOrNull?.display ?? '--';
+      clinicalStatus?.coding?.firstOrNull?.display ?? ''.hardcoded;
 
   String getVerificationStatus() =>
-      verificationStatus?.coding?.firstOrNull?.display ?? '--';
+      verificationStatus?.coding?.firstOrNull?.display ?? ''.hardcoded;
 
-  String getSeverity() => severity?.coding?.firstOrNull?.display ?? '--';
+  String getSeverity() =>
+      severity?.coding?.firstOrNull?.display ?? ''.hardcoded;
 
   String getOnsetDateTime() {
     if (onsetDateTime != null) {
@@ -32,5 +34,18 @@ extension ConditionPastIllnessR4 on Condition {
       abatementPeriod?.start?.toIso8601String() ??
       'Resolution unknown';
 
-  String getNotes() => note?.map((e) => e.text).join(', ') ?? '--';
+  String getNotes() => note?.map((e) => e.text).join(', ') ?? ''.hardcoded;
+
+  String display() {
+    List<String> parts = [
+      getConditionName(),
+      getClinicalStatus(),
+      getVerificationStatus(),
+      getSeverity(),
+      getOnsetDateTime(),
+      getResolutionDateTime(),
+      getNotes(),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
+  }
 }

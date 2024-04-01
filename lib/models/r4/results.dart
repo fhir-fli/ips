@@ -1,8 +1,9 @@
 import 'package:fhir_r4/fhir_r4.dart';
+import '../../ips.dart';
 
-extension ObservationR4 on Observation {
+extension ObservationResultsR4 on Observation {
   String getResultType() =>
-      code.text ?? code.coding?.firstOrNull?.display ?? '--';
+      code.text ?? code.coding?.firstOrNull?.display ?? ''.hardcoded;
 
   String getResultValue() {
     if (valueQuantity != null) {
@@ -10,23 +11,23 @@ extension ObservationR4 on Observation {
     } else if (valueCodeableConcept != null) {
       return valueCodeableConcept!.coding?.firstOrNull?.display ??
           valueCodeableConcept!.text ??
-          '--';
+          ''.hardcoded;
     } else if (valueString != null) {
       return valueString!;
     } else if (valueBoolean != null) {
       return valueBoolean!.toString();
     }
-    return '--';
+    return ''.hardcoded;
   }
 
   String getResultInterpretation() =>
       interpretation
-          ?.map((i) => i.coding?.firstOrNull?.display ?? i.text ?? '--')
+          ?.map((i) => i.coding?.firstOrNull?.display ?? i.text ?? ''.hardcoded)
           .join(', ') ??
-      '--';
+      ''.hardcoded;
 
   String getObservationMethod() =>
-      method?.text ?? method?.coding?.firstOrNull?.display ?? '--';
+      method?.text ?? method?.coding?.firstOrNull?.display ?? ''.hardcoded;
 
   String getEffectiveDateTime() {
     if (effectiveDateTime != null) {
@@ -37,5 +38,18 @@ extension ObservationR4 on Observation {
     return 'Date unknown';
   }
 
-  String getNotes() => note?.map((n) => n.text ?? '--').join(', ') ?? '--';
+  String getNotes() =>
+      note?.map((n) => n.text ?? ''.hardcoded).join(', ') ?? ''.hardcoded;
+
+  String display() {
+    List<String> parts = [
+      getResultType(),
+      getResultValue(),
+      getResultInterpretation(),
+      getObservationMethod(),
+      getEffectiveDateTime(),
+      getNotes(),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
+  }
 }

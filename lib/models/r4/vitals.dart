@@ -1,8 +1,9 @@
 import 'package:fhir_r4/fhir_r4.dart';
+import '../../ips.dart';
 
 extension ObservationVitalSignR4 on Observation {
   String getVitalSignType() =>
-      code.text ?? code.coding?.firstOrNull?.display ?? '--';
+      code.text ?? code.coding?.firstOrNull?.display ?? ''.hardcoded;
 
   String getValue() {
     if (valueQuantity != null) {
@@ -10,13 +11,13 @@ extension ObservationVitalSignR4 on Observation {
     } else if (valueCodeableConcept != null) {
       return valueCodeableConcept!.coding?.firstOrNull?.display ??
           valueCodeableConcept!.text ??
-          '--';
+          ''.hardcoded;
     } else if (valueString != null) {
       return valueString!;
     } else if (valueBoolean != null) {
       return valueBoolean!.toString();
     }
-    return '--';
+    return ''.hardcoded;
   }
 
   String getObservationDate() =>
@@ -24,5 +25,15 @@ extension ObservationVitalSignR4 on Observation {
       effectivePeriod?.start?.toIso8601String() ??
       'Date unknown';
 
-  String getUnit() => valueQuantity?.unit ?? '--';
+  String getUnit() => valueQuantity?.unit ?? ''.hardcoded;
+
+  String display() {
+    List<String> parts = [
+      getVitalSignType(),
+      getValue(),
+      getUnit(),
+      getObservationDate(),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
+  }
 }

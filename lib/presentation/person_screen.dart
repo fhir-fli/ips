@@ -24,17 +24,25 @@ class PersonScreen extends ConsumerWidget {
                 final firstName = humanName?.given?.join(' ');
                 final name =
                     '${firstName == null ? "" : firstName} ${humanName?.family == null ? "" : humanName?.family}';
-                return OutlinedButton(
-                  child: Center(
-                    child: Text(
-                      name,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: OutlinedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
                     ),
-                  ),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => IpsScreen(persons[index])),
+                    child: Center(
+                      child: Text(
+                        name,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IpsScreen(persons[index])),
+                    ),
                   ),
                 );
               }),
@@ -42,16 +50,29 @@ class PersonScreen extends ConsumerWidget {
           ),
         ),
       ),
-      floatingActionButton: IconButton(
-        icon: Column(
-          children: [
-            const Icon(Icons.download),
-            Text('Download'),
-          ],
+      floatingActionButton: Container(
+        width: 90.0,
+        height: 90.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.purple,
         ),
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DownloadScreen()),
+        child: IconButton(
+          color: Colors.white,
+          icon: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.download),
+              Text(
+                'Download',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DownloadScreen()),
+          ),
         ),
       ),
     );
