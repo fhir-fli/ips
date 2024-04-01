@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:fhir_r4/fhir_r4.dart';
+import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../ips.dart';
@@ -10,4 +14,24 @@ class PersonListController extends _$PersonListController {
   List<IpsDataR4> build() => [];
 
   void set(List<IpsDataR4> value) => state = value;
+
+  Future<void> download() async {
+    final manifestJson = await rootBundle.loadString('AssetManifest.json');
+    final filePaths = jsonDecode(manifestJson)
+        .keys
+        .where((String key) => key.startsWith('assets/samples'));
+    final personList = <IpsDataR4>[];
+    for (final filePath in filePaths) {
+      try {
+        String jsonString = await rootBundle.loadString(filePath);
+        final resource = Resource.fromJsonString(jsonString);
+        if (resource is Bundle) {
+          personList.add(IpsDataR4(resource));
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+    state = personList;
+  }
 }

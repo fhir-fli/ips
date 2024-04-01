@@ -1,10 +1,10 @@
 {
     "resourceType": "Bundle",
-    "id": "IPS-HKG-sample-Bundle-01",
+    "id": "IPS-HKG-sample-Bundle-03",
     "language": "en-US",
     "identifier": {
         "system": "https://www.ehealth.gov.hk/bundle",
-        "value": "sample-ips-1"
+        "value": "sample-ips-3"
     },
     "type": "document",
     "timestamp": "2022-01-07T17:59:47.953Z",
@@ -13,9 +13,9 @@
             "fullUrl": "https://www.ehealth.gov.hk/Composition/IPS-Composition-01",
             "resource": {
                 "resourceType": "Composition",
-                "id": "IPS-Composition-01",
+                "id": "IPS-Composition-03",
                 "subject": {
-                    "reference": "https://www.ehealth.gov.hk/Patient/00001"
+                    "reference": "https://www.ehealth.gov.hk/Patient/00003"
                 },
                 "language": "en-US",
                 "text": {
@@ -53,7 +53,7 @@
                         },
                         "text": {
                             "status": "generated",
-                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><div><b>Allergy Name</b>: Cephalosporins</div><div><b>Verification Status</b>: Confirmed</div><div><b>Reaction</b>: <span>Rash</span></div></li><li><div><b>Allergy Name</b>: Seafood</div><div><b>Verification Status</b>: Unconfirmed</div></li></ul></div>"
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><div><b>Allergy Name</b>: Quinolones</div><div><b>Verification Status</b>: Confirmed</div><div><b>Reaction</b>: <span>Rash</span></div></li><li><div><b>Allergy Name</b>: 生蠔</div><div><b>Verification Status</b>: Unconfirmed</div></li></ul></div>"
                         },
                         "entry": [
                             {
@@ -77,7 +77,7 @@
                         },
                         "text": {
                             "status": "generated",
-                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><div><b>Condition Name</b>: Hyperlipidemia</div><div><b>Code</b>: <span>55822004</span></div><div><b>Status</b>: <span>Active</span></div></li></ul></div>"
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><div><b>Condition Name</b>: Plaque psoriasis</div><div><b>Code</b>: <span>55822004</span></div><div><b>Status</b>: <span>Active</span></div></li></ul></div>"
                         },
                         "entry": [
                             {
@@ -110,7 +110,7 @@
             }
         },
         {
-            "fullUrl": "https://www.ehealth.gov.hk/Patient/00001",
+            "fullUrl": "https://www.ehealth.gov.hk/Patient/00003",
             "resource": {
                 "resourceType": "Patient",
                 "id": "00001",
@@ -123,7 +123,7 @@
                 "language": "English- [en-US]",
                 "text": {
                     "status": "generated",
-                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div><b>Patient Name: </b>: PATIENT, PEACH</div><div><b>Sex</b>: Male</div><div><b>BirthDate</b>: 1951-01-01</div>"
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div><b>Patient Name: </b>: PATIENT, APPLE</div><div><b>Sex</b>: Male</div><div><b>BirthDate</b>: 2014-06-06</div>"
                 },
                 "identifier": [
                     {
@@ -138,21 +138,21 @@
                             ],
                             "text": "Citizenship Card"
                         },
-                        "value": "U6547890"
+                        "value": "U3654782"
                     }
                 ],
                 "name": [
                     {
                         "use": "usual",
-                        "text": "PATIENT, PEACH",
+                        "text": "PATIENT, APPLE",
                         "family": "PATIENT",
                         "given": [
-                            "PEACH"
+                            "APPLE"
                         ]
                     }
                 ],
                 "gender": "male",
-                "birthDate": "1951-01-01"
+                "birthDate": "2014-06-06"
             }
         },
         {
@@ -205,8 +205,8 @@
                 },
                 "type": "allergy",
                 "patient": {
-                    "reference": "https://www.ehealth.gov.hk/Patient/00001",
-                    "display": "PATIENT, PEACH"
+                    "reference": "https://www.ehealth.gov.hk/Patient/00003",
+                    "display": "PATIENT, APPLE"
                 },
                 "clinicalStatus": {
                     "coding": [
@@ -235,10 +235,10 @@
                         {
                             "system": "https://www.ehealth.gov.hk/Allergy/allergenCode",
                             "code": "-",
-                            "display": "cephalosporins"
+                            "display": "Quinolones"
                         }
                     ],
-                    "text": "cephalosporins"
+                    "text": "Quinolones"
                 },
                 "reaction": [
                     {
@@ -272,8 +272,8 @@
                 },
                 "type": "allergy",	
                 "patient": {
-                    "reference": "https://www.ehealth.gov.hk/Patient/00001",
-                    "display": "PATIENT, PEACH"
+                    "reference": "https://www.ehealth.gov.hk/Patient/00003",
+                    "display": "PATIENT, APPLE"
                 },
                 "clinicalStatus": {
                     "coding": [
@@ -302,11 +302,32 @@
                         {
                             "system": "https://www.ehealth.gov.hk/Allergy/allergenCode",
                             "code": "-",
-                            "display": "Seafood"
+                            "display": "生蠔"
                         }
                     ],
-                    "text": "Seafood"
-                }
+                    "text": "生蠔"
+                },
+                "reaction": [
+                    {
+                        "manifestation": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "https://www.ehealth.gov.hk/HKSCT",
+                                        "code": "41789",
+                                        "display": "Other allergic reaction"
+                                    }
+                                ],
+                                "text": "Other allergic reaction"
+                            }
+                        ]
+                    }
+                ],
+                "note": [
+                    {
+                            "text": "vomiting + diarrhoea"
+                    }
+                ]
             }
         },
         {
@@ -342,15 +363,15 @@
                     "coding": [
                         {
                             "system": "http://snomed.info/sct",
-                            "code": "55822004",
-                            "display": "Hyperlipidemia"
+                            "code": "200965009",
+                            "display": "Plaque psoriasis"
                         }
                     ],
-                    "text": "Hyperlipidemia"
+                    "text": "Plaque psoriasis"
                 },
                 "subject": {
-                    "reference": "https://www.ehealth.gov.hk/Patient/00001",
-                    "display": "PATIENT, PEACH"
+                    "reference": "https://www.ehealth.gov.hk/Patient/00003",
+                    "display": "PATIENT, APPLE"
                 }
             }
         },
@@ -373,8 +394,8 @@
                     ]
                 },
                 "subject": {
-                    "reference": "https://www.ehealth.gov.hk/Patient/00001",
-                    "display": "PATIENT, PEACH"
+                    "reference": "https://www.ehealth.gov.hk/Patient/00003",
+                    "display": "PATIENT, APPLE"
                 }
             }
         }
