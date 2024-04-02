@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fhir_r4/fhir_r4.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../ips.dart';
@@ -33,5 +34,17 @@ class PersonListController extends _$PersonListController {
       }
     }
     state = personList;
+  }
+
+  Future<void> downloadFromUrl(String url, String id) async {
+    try {
+      final result = await http.get(Uri.parse('$url/Patient/$id/\$summary'));
+      final resource = Resource.fromJsonString(result.body);
+      if (resource is Bundle) {
+        state = [...state, IpsDataR4(resource)];
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

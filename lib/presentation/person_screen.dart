@@ -40,8 +40,23 @@ class PersonScreen extends ConsumerWidget {
           ),
           body: Center(
             child: persons.length == 0
-                ? Text('No Patient Summaries Found',
-                    style: Theme.of(context).textTheme.headlineSmall)
+                ? OutlinedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                          'No Patient Summaries Found\nClick Here to Download',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineSmall),
+                    ),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DownloadScreen())))
                 : GridView.count(
                     crossAxisCount: screenSize.width < 500
                         ? 2
