@@ -6,77 +6,115 @@ import '../ips.dart';
 class DownloadScreen extends ConsumerWidget {
   const DownloadScreen();
 
+  Future<void> showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              const SizedBox(width: 24),
+              Text('Loading...'.hardcoded),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     TextEditingController hapiController = TextEditingController();
     TextEditingController ipsController = TextEditingController();
-    final screenSize = MediaQuery.of(context).size;
 
     Widget rowButton(
             TextEditingController controller, String text, String url) =>
-        Column(
-          children: [
-            OutlinedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(text,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineSmall),
-              ),
-              onPressed: () async {
-                ref
-                    .read(personListControllerProvider.notifier)
-                    .downloadFromUrl(url, controller.text);
-              },
-            ),
-            SizedBox(
-              width: screenSize.width * 0.3,
-              child: TextField(
-                controller: controller,
-              ),
-            ),
-          ],
-        );
-    return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Center(
+        Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 12),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                rowButton(
-                    hapiController,
-                    'Enter an ID to download from https://hapi.fhir.org/',
-                    'http://hapi.fhir.org/baseR4'),
-                rowButton(
-                    ipsController,
-                    'Enter an ID to download from the IPS Reference Server',
-                    'https://hl7-ips-server.hl7.org/fhir'),
-                OutlinedButton(
+                ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text('Load Demo Data',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headlineSmall),
-                  ),
+                  child:
+                      Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
                   onPressed: () async {
-                    ref.read(personListControllerProvider.notifier).download();
+                    showLoadingDialog(context);
+                    await ref
+                        .read(personListControllerProvider.notifier)
+                        .downloadFromUrl(url, controller.text);
+                    Navigator.pop(context);
                   },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter ID",
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
+          ),
+        );
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              rowButton(hapiController, 'Download from HAPI FHIR Server',
+                  'http://hapi.fhir.org/baseR4'),
+              SizedBox(height: 30),
+              rowButton(ipsController, 'Download from IPS Reference Server',
+                  'https://hl7-ips-server.hl7.org/fhir'),
+              SizedBox(height: 30),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+                child: Text('Load Demo Data',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  showLoadingDialog(context);
+                  await ref
+                      .read(personListControllerProvider.notifier)
+                      .download();
+                  Navigator.pop(context);
+                },
+              ),
+            ],
           ),
         ),
       ),

@@ -6,6 +6,7 @@ export 'immunizations.dart';
 export 'medical_devices.dart';
 export 'medications.dart';
 export 'past_illness_history.dart';
+export 'patient.dart';
 export 'plan_of_care.dart';
 export 'pregnancy.dart';
 export 'problems.dart';

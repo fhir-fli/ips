@@ -21,8 +21,8 @@ extension ObservationVitalSignR4 on Observation {
   }
 
   String getObservationDate() =>
-      effectiveDateTime?.toIso8601String() ??
-      effectivePeriod?.start?.toIso8601String() ??
+      effectiveDateTime?.valueString ??
+      effectivePeriod?.start?.valueString ??
       'Date unknown';
 
   String getUnit() => valueQuantity?.unit ?? ''.hardcoded;
