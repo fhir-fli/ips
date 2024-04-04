@@ -100,8 +100,8 @@ class DownloadScreen extends ConsumerWidget {
               rowButton(hapiController, 'Download from HAPI FHIR Server',
                   'http://hapi.fhir.org/baseR4'),
               SizedBox(height: 30),
-              rowButton(ipsController, 'Download from IPS Reference Server',
-                  'https://hl7-ips-server.hl7.org/fhir'),
+              // rowButton(ipsController, 'Download from IPS Reference Server',
+              //     'https://hl7-ips-server.hl7.org/fhir'),
               SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

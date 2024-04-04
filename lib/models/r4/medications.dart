@@ -112,3 +112,71 @@ extension MedicationStatementR4 on MedicationStatement {
     return parts.join(' - ');
   }
 }
+
+extension MedicationAdministrationR4 on MedicationAdministration {
+  String getMedicationName(Bundle bundle) {
+    final reference = medicationReference?.reference;
+    final Medication? medicationResource = reference != null
+        ? bundle.resourceFromBundleByReference(reference) as Medication?
+        : null;
+
+    return medicationResource?.code?.coding?.firstOrNull?.display ??
+        medicationCodeableConcept?.text ??
+        medicationCodeableConcept?.coding?.first.display ??
+        'No medication name provided';
+  }
+
+  String getRouteOfAdministration() =>
+      dosage?.route?.coding?.firstOrNull?.display ??
+      dosage?.route?.text ??
+      'No route provided';
+
+  String getAdministrationTiming() =>
+      effectiveDateTime?.value.toString() ??
+      effectivePeriod?.start?.value.toString() ??
+      'No timing provided';
+
+  String getDoseQuantity() =>
+      dosage?.dose?.value?.toString() ?? 'No dose quantity provided';
+
+  String getStatus() => status?.value ?? 'No status provided';
+
+  String display(Bundle bundle) {
+    List<String> parts = [
+      getMedicationName(bundle),
+      getRouteOfAdministration(),
+      getAdministrationTiming(),
+      getDoseQuantity(),
+      getStatus(),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
+  }
+}
+
+extension MedicationDispenseR4 on MedicationDispense {
+  String getMedicationName(Bundle bundle) {
+    final reference = medicationReference?.reference;
+    final Medication? medicationResource = reference != null
+        ? bundle.resourceFromBundleByReference(reference) as Medication?
+        : null;
+
+    return medicationResource?.code?.coding?.firstOrNull?.display ??
+        medicationCodeableConcept?.text ??
+        medicationCodeableConcept?.coding?.first.display ??
+        'No medication name provided';
+  }
+
+  String getQuantityDispensed() =>
+      quantity?.value?.toString() ?? 'No quantity dispensed';
+
+  String getDispenseStatus() => status?.value ?? 'No dispense status provided';
+
+  String display(Bundle bundle) {
+    List<String> parts = [
+      getMedicationName(bundle),
+      getQuantityDispensed(),
+      getDispenseStatus(),
+    ].where((part) => part.isNotEmpty).toList();
+    return parts.join(' - ');
+  }
+}

@@ -58,7 +58,13 @@ class IpsScreen extends ConsumerWidget {
           ...person.medications
               .map((e) => e is MedicationStatement
                   ? e.display(person.bundle)
-                  : (e as MedicationRequest).display(person.bundle))
+                  : e is MedicationRequest
+                      ? e.display(person.bundle)
+                      : e is MedicationDispense
+                          ? e.display(person.bundle)
+                          : e is MedicationAdministration
+                              ? e.display(person.bundle)
+                              : null)
               .whereType<String>()
               .where((element) => element.isNotEmpty)
               .map((e) => buildListTile(e, context))

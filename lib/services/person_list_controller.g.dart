@@ -7,7 +7,7 @@ part of 'person_list_controller.dart';
 // **************************************************************************
 
 String _$personListControllerHash() =>
-    r'2538bd8a7055da2efc4569c637a7a9ca5d8f9ad8';
+    r'b1caa7c6cbbbd250c278d71a7e73e0957a5e7f71';
 
 /// See also [PersonListController].
 @ProviderFor(PersonListController)
