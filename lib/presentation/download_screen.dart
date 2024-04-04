@@ -52,10 +52,19 @@ class DownloadScreen extends ConsumerWidget {
                       Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
                   onPressed: () async {
                     showLoadingDialog(context);
-                    await ref
+                    final successful = await ref
                         .read(personListControllerProvider.notifier)
                         .downloadFromUrl(url, controller.text);
                     Navigator.pop(context);
+                    if (successful) {
+                      Navigator.pop(context);
+                    } else {
+                      showAlertDialog(
+                          context: context,
+                          title:
+                              'There was an error downloading the data. Please try again.'
+                                  .hardcoded);
+                    }
                   },
                 ),
                 Padding(
@@ -111,6 +120,7 @@ class DownloadScreen extends ConsumerWidget {
                   await ref
                       .read(personListControllerProvider.notifier)
                       .download();
+                  Navigator.pop(context);
                   Navigator.pop(context);
                 },
               ),

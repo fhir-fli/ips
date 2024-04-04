@@ -36,15 +36,18 @@ class PersonListController extends _$PersonListController {
     state = personList;
   }
 
-  Future<void> downloadFromUrl(String url, String id) async {
+  Future<bool> downloadFromUrl(String url, String id) async {
     try {
       final result = await http.get(Uri.parse('$url/Patient/$id/\$summary'));
       final resource = Resource.fromJsonString(result.body);
       if (resource is Bundle) {
         state = [...state, IpsDataR4(resource)];
+        return true;
       }
+      return false;
     } catch (e) {
       print(e);
+      return false;
     }
   }
 }
