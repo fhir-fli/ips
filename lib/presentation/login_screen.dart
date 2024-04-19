@@ -79,6 +79,7 @@ class LargeScreenLogin extends StatelessWidget {
               ),
             ),
             LocalLoginButton(),
+            Text('© 2024 The Children’s Hospital of Philadelphia'.hardcoded),
           ],
         ),
       ],
@@ -132,6 +133,7 @@ class SmallScreenLogin extends StatelessWidget {
             ),
           ),
           LocalLoginButton(),
+          Text('© 2024 The Children’s Hospital of Philadelphia'.hardcoded),
         ],
       ),
     );
