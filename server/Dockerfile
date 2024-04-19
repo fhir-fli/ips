@@ -1,4 +1,24 @@
-FROM dart:latest AS build
+################
+# Currently, this Dockerfile fails to build for web on M1 machines
+# see this error: https://github.com/rvolosatovs/docker-protobuf/issues/81
+# ...this example: https://github.com/rvolosatovs/docker-protobuf/blob/main/Dockerfile
+# ...these instructions: https://github.com/tonistiigi/xx
+
+# FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
+# FROM --platform=$BUILDPLATFORM alpine
+# # copy xx scripts to your build stage
+# COPY --from=xx / /
+# # export TARGETPLATFORM (or other TARGET*)
+# ARG TARGETPLATFORM
+# # you can now call xx-* commands
+# RUN xx-info env
+
+################
+# Official Dart image: https://hub.docker.com/_/dart
+# spec: https://github.com/dart-lang/samples/blob/master/server/simple/Dockerfile
+# Specify the Dart SDK base image version using dart:<version> (ex: dart:2.12)
+# FROM dart:2.19 AS build
+FROM dart:stable AS build
 
 # Resolve app dependencies.
 WORKDIR /app
@@ -23,3 +43,4 @@ COPY --from=build /app/web/ /web
 # Start server.
 EXPOSE 8080
 CMD ["/app/bin/server"]
+# ENTRYPOINT ["/app/bin/server"]
