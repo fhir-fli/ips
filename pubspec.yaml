@@ -30,8 +30,6 @@ dependencies:
     path: ../fhir_r6
   fhir_stu3:
     path: ../fhir_stu3
-  fhir_yaml:
-    path: ../fhir_yaml
   flutter:
     sdk: flutter
   flutter_localizations:
